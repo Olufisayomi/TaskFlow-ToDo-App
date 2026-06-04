@@ -52,7 +52,8 @@ while True:
     print("1. View Tasks")
     print("2. Add Task")
     print("3. Remove Task")
-    print("4. Exit")
+    print("4. Edit Task")
+    print("5. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -71,3 +72,29 @@ while True:
 
     else:
         print("Invalid choice. Try again.")
+
+
+def edit_task():
+    show_tasks()
+
+    try:
+        task_number = int(input("\nEnter task number to edit: "))
+
+        with open("tasks.txt", "r") as file:
+            tasks = file.readlines()
+
+        if 1 <= task_number <= len(tasks):
+            new_task = input("Enter the new task: ")
+
+            tasks[task_number - 1] = new_task + "\n"
+
+            with open("tasks.txt", "w") as file:
+                file.writelines(tasks)
+
+            print("Task updated successfully!")
+
+        else:
+            print("Invalid task number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
